@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateApplicantsTable extends Migration
+class CreateVaccineDosesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateApplicantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('applicants', function (Blueprint $table) {
+        Schema::create('vaccine_doses', function (Blueprint $table) {
             $table->id();
-            $table->string('nid','32');
-            $table->date('dob');
-            $table->string('mobile_no','64');
-            $table->foreignId('center_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('vaccine_id')->constrained();
+            $table->date('scheduled_date');
+            $table->date('taken_date');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateApplicantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicants');
+        Schema::dropIfExists('vaccine_doses');
     }
 }
